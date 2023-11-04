@@ -19,7 +19,7 @@ public class Employee {
 
     public String toString()
     {
-        String response = String.format("First and last name:%s %s\nAddress: %s\nEmployee ID: %d\n9 month salary: %d", first_name, last_name, address, id, nineMonthPayment());
+        String response = String.format("First and last name: %s %s\nAddress: %s\nEmployee ID: %d\n9 month salary: %d", first_name, last_name, address, id, nineMonthPayment());
         return response;
     }
 
