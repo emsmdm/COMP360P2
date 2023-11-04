@@ -1,15 +1,15 @@
 import java.util.*;
 
-public class AssistantProfessor {
+public class AssistantProfessor extends Employee {
     protected String extraCourse;
-    protected int summerPay
+    protected double summerPay;
 
-    protected int additionalPayment(){
+    protected double additionalPayment(){
         summerPay = monthly_salary * 1.5;
         return summerPay;
     }
 
-    public string summerPayment(){
+    public String summerPayment(){
         String extraPay = String.format("Summer Payment: %s", additionalPayment());
         return extraPay;
     }
