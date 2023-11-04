@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class AssistantProfessor {
+public class AssistantProfessor extends Employee{
     protected String extraCourse;
     protected int summerPay
 
