@@ -1,21 +1,22 @@
 import java.util.*;
 
 public class Professor extends AssistantProfessor{
-    protected int grant;
-    protected int bonus;
+    protected int grant = 0;
+    protected int totalBonus = 0;
+    protected boolean grantExist = false;
 
-    protected int grantAmount(int grantMoney){
-        grant = grantMoney;
-    }
-
-    protected int bonusMoney(){
-        if(grant > 1000000){
-            bonus += 7000;
+    protected int grantAmount(boolean recieveGrant){
+        if(recieveGrant){
+            grantExist = true;
+            if(grant > 1000000){
+                totalBonus = summerPay + 7000;
+            }
         }
+        return totalBonus
     }
 
-    public string bonusPayment(){
-        String bonusPay = String.format("Total Bonus Payment: %s", bonus);
+    public String toString(){
+        String bonusPay = String.format(super.toString() + "\nTotal Bonus Payment: %s", grantAmount(grantExist));
         return bonusPay;
     }
 }
