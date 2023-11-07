@@ -9,10 +9,10 @@ public class Professor extends AssistantProfessor{
         if(recieveGrant){
             grantExist = true;
             if(grant > 1000000){
-                totalBonus = summerPay + 7000;
+                return 7000;
             }
         }
-        return totalBonus
+        return 0;
     }
 
     public String toString(){
