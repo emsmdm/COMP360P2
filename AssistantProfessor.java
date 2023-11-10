@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class AssistantProfessor extends Employee {
-    protected String extraCourse;
+    protected String extraCourseTitle;
     protected double summerPay = 0.0;
     protected boolean summerCourse = false;
 
@@ -29,6 +29,7 @@ public class AssistantProfessor extends Employee {
         Maw.id = 56789;
         Maw.monthly_salary = 52000;
         Maw.additionalPayment(true);
+        Maw.extraCourseTitle = "Course 101";
         System.out.println(Maw.toString());
     
     }
