@@ -5,17 +5,24 @@ import java.awt.desktop.SystemSleepEvent;
 
 public class PaymentSystemInterface {
     public JFrame SystemFrame;
+    public JFrame doneFrame;
+    public JFrame resultFrame;
     public JPanel input;
     public JPanel output;
+    public JLabel selectTeacher;
     public JButton submit;
+    public JButton done;
+    public JButton go;
     public JTextField name;
     public JTextField address;
     public JTextField id;
     public JTextField summerCourseTitle;
     public JComboBox employeePick;
     public JComboBox grantOverMil;
+    public JComboBox employeeList;
     GridBagLayout gbl;
     GridBagConstraints gbc;
+    GridBagConstraints gb
 
     public PaymentSystemInterface() {
         SystemFrame = new JFrame("ABC University Payment System");
@@ -54,6 +61,38 @@ public class PaymentSystemInterface {
         gbc.gridwidth = 6;
         gbc.ipady = 0;
         input.add(name, gbc);
+
+        done = new JButton("Done");
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        SystemFrame.add(done, gbc);
+
+        done.addActionListener(new ActionListener(){
+            public void ActionPerformed(ActionEvent e){
+                doneFrame = new JFrame();
+                doneFrame.setSize(200, 200);
+                doneFrame.setLayout(gbl);
+                doneFrame.setVisible(true);
+
+                String[] empList = {};
+                employeeList = new JComboBox(empList);
+                doneFrame.add(employeeList);
+
+                go = new JButton("Go");
+                doneFrame.add(go);
+
+                go.addActionListener(new ActionListener(){
+                    public void ActionDone(ActionEvent f){
+                        resultFrame = new JFrame("Employee Information");
+                        resultFrame.setSize(500, 500);
+                        resultFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                    }
+                })
+            }
+        });
+
+
 
     }
 
