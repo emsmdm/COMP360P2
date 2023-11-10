@@ -12,22 +12,14 @@ public class PaymentSystemInterface {
     public JFrame resultFrame;
     public JPanel input;
     public JPanel output;
-    public JLabel selectTeacher;
     public JButton submit;
     public JButton done;
     public JButton go;
-    public JTextField name;
-    public JTextField address;
-    public JTextField id;
-    public JTextField summerCourseTitle;
-    public JComboBox employeePick;
-    public JComboBox grantOverMil;
+    public JButton clear;
     public JComboBox employeeList;
     public JPanel input1;
     public JPanel input2;
     public JPanel input3;
-    public JButton submit;
-    public JButton clear;
     public JTextField lastNameText;
     public JTextField firstNameText;
     public JTextField addressText;
@@ -39,7 +31,6 @@ public class PaymentSystemInterface {
     public JLabel address;
     public JLabel prompt1;
     public JLabel prompt2;
-    public JLabel id;
     public JLabel salary;
     public JLabel summerCourseTitle;
     public JLabel employeePick;
@@ -47,6 +38,8 @@ public class PaymentSystemInterface {
     public JLabel grantOverMilLabel;
     public JLabel submitLabel;
     public JLabel clearLabel;
+    public JLabel selectTeacher;
+    public JLabel id;
     public JComboBox employeePickBox;
     public JComboBox grantOverMil;
     public JComboBox teachingSummer;
@@ -197,10 +190,10 @@ public class PaymentSystemInterface {
         gbc.gridy = 1;
         input3.add(submitLabel, gbc);
 
-        submit = new JButton("Submit");
+        done = new JButton("Done");
         gbc.gridx = 0;
         gbc.gridy = 2;
-        input3.add(submit, gbc);
+        input3.add(done, gbc);
 
         clearLabel = new JLabel("Click the button below to clear the form.");
         gbc.gridx = 0;
@@ -227,19 +220,13 @@ public class PaymentSystemInterface {
 		});
 
 
-
-
-
-        done = new JButton("Done");
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        SystemFrame.add(done, gbc);
-
-        done.addActionListener(new ActionListener(){
-            public void ActionPerformed(ActionEvent e){
+        done.addActionListener((ActionListener) new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
                 doneFrame = new JFrame();
                 doneFrame.setSize(200, 200);
                 doneFrame.setLayout(gbl);
+                doneFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 doneFrame.setVisible(true);
 
                 String[] empList = {};
@@ -249,14 +236,16 @@ public class PaymentSystemInterface {
                 go = new JButton("Go");
                 doneFrame.add(go);
 
-                go.addActionListener(new ActionListener(){
-                    public void ActionDone(ActionEvent f){
+                go.addActionListener((ActionListener) new ActionListener(){
+                    @Override
+                    public void actionPerformed(ActionEvent f){
                         resultFrame = new JFrame("Employee Information");
                         resultFrame.setSize(500, 500);
                         resultFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        resultFrame.setVisible(true);
 
                     }
-                })
+                });
             }
         });
 
