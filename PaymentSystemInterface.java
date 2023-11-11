@@ -26,6 +26,7 @@ public class PaymentSystemInterface {
     public JTextField idText;
     public JTextField summerCourseTitleText;
     public JTextField salaryText;
+    public JTextArea results;
     public JLabel lastName;
     public JLabel firstName;
     public JLabel address;
@@ -40,6 +41,7 @@ public class PaymentSystemInterface {
     public JLabel clearLabel;
     public JLabel selectTeacher;
     public JLabel id;
+    public JLabel doneLabel;
     public JComboBox employeePickBox;
     public JComboBox grantOverMil;
     public JComboBox teachingSummer;
@@ -47,6 +49,27 @@ public class PaymentSystemInterface {
     GridBagLayout gbl;
     GridBagConstraints gbc;
     GridBagConstraints gbg;
+
+    public static int findIndex(String arr[], String s) 
+    {  
+        if (arr == null) 
+        { 
+            return -1; 
+        }  
+        int i = 0; 
+        while (i < arr.length)
+        {  
+            if (arr[i] == s) 
+            { 
+                return i; 
+            } 
+            else
+            { 
+                i = i + 1; 
+            } 
+        } 
+        return -1; 
+    }
 
     public PaymentSystemInterface() {
         SystemFrame = new JFrame("ABC University Payment System");
@@ -122,7 +145,7 @@ public class PaymentSystemInterface {
 		gbc.gridy = 2;
 		input1.add(addressText, gbc);
 
-        id = new JLabel("ID:");
+        id = new JLabel("ID #:");
         gbc.gridx = 2;
         gbc.gridy = 2;
         input1.add(id, gbc);
@@ -190,23 +213,35 @@ public class PaymentSystemInterface {
         gbc.gridy = 1;
         input3.add(submitLabel, gbc);
 
-        done = new JButton("Done");
+        submit = new JButton("Submit");
         gbc.gridx = 0;
         gbc.gridy = 2;
+        input3.add(submit, gbc);
+
+        doneLabel = new JLabel("Click the button below when you are done entering information for ALL employees");
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        input3.add(doneLabel, gbc);
+
+        done = new JButton("Done");
+        gbc.gridx = 0;
+        gbc.gridy = 4;
         input3.add(done, gbc);
 
         clearLabel = new JLabel("Click the button below to clear the form.");
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 5;
         input3.add(clearLabel, gbc);
 
         clear = new JButton("Clear");
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 6;
         input3.add(clear, gbc);
 
 
+        ArrayList <Employee> empList = new ArrayList<Employee>();
 
+    
         clear.addActionListener((ActionListener) new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -219,19 +254,54 @@ public class PaymentSystemInterface {
 			}
 		});
 
+        submit.addActionListener((ActionListener) new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                String lastName = lastNameText.getText();
+                String firstName = firstNameText.getText();
+                String address = addressText.getText();
+                int id = Integer.valueOf(idText.getText());
+                int salary = Integer.valueOf(salaryText.getText());
+
+                if(employeePickBox.getSelectedItem().equals("Lecturer"))
+                {
+                    Employee employee = new Employee();
+                    employee.last_name = lastName;
+                    employee.first_name = firstName;
+                    employee.address = address;
+                    employee.id = id;
+                    employee.monthly_salary = salary;
+                    empList.add(employee);
+
+                }
+
+
+                lastNameText.setText("");
+				firstNameText.setText("");
+				addressText.setText("");
+				idText.setText("");
+				summerCourseTitleText.setText("");
+				salaryText.setText("");
+            }
+        });
+
 
         done.addActionListener((ActionListener) new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
+                String empListArr[] = new String[empList.size()];
+                for(int i = 0; i <empListArr.length; i++)
+                {
+                    empListArr[i] = empList.get(i).first_name;
+                }
                 doneFrame = new JFrame();
                 doneFrame.setSize(200, 200);
                 doneFrame.setLayout(gbl);
                 doneFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 doneFrame.setVisible(true);
-
-                String[] empList = {};
-                employeeList = new JComboBox(empList);
+                employeeList = new JComboBox(empListArr);
                 doneFrame.add(employeeList);
+                
 
                 go = new JButton("Go");
                 doneFrame.add(go);
@@ -243,6 +313,8 @@ public class PaymentSystemInterface {
                         resultFrame.setSize(500, 500);
                         resultFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         resultFrame.setVisible(true);
+                        results = new JTextArea(empList.get(findIndex(empListArr, employeeList.getSelectedItem().toString())).toString());
+                        resultFrame.add(results);
 
                     }
                 });

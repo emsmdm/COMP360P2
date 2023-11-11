@@ -7,11 +7,6 @@ public class Employee {
     protected int id;
     protected int monthly_salary;
 
-    protected void inputSalary(int salary)
-    {
-        monthly_salary = salary;
-    }
-
     protected int nineMonthPayment()
     {
         return monthly_salary * 9;
@@ -30,7 +25,7 @@ public class Employee {
         Maw.address = "5217 Emerald Spring Drive";
         Maw.id = 56789;
         Maw.monthly_salary = 52000;
-        System.out.println(Maw.toString());
+        System.out.println(Maw);
     
     }*/
 }
