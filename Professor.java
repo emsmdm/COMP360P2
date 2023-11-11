@@ -5,7 +5,7 @@ public class Professor extends AssistantProfessor{
     protected int totalBonus = 0;
     protected boolean grantExist = false;
 
-    protected int grantAmount(boolean recieveGrant){
+    protected int bonus(boolean recieveGrant){
         if(recieveGrant){
             grantExist = true;
             if(grant > 1000000){
@@ -16,7 +16,8 @@ public class Professor extends AssistantProfessor{
     }
 
     public String toString(){
-        String bonusPay = String.format(super.toString() + "\nTotal Bonus Payment: %s", grantAmount(grantExist));
+        String bonusPay = String.format(super.toString() + "\nGrant Amount: %d\nTotal bonus payment: %d", grant, bonus(grantExist) + grant);
         return bonusPay;
     }
 }
+

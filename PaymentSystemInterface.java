@@ -10,8 +10,6 @@ public class PaymentSystemInterface {
     public JFrame SystemFrame;
     public JFrame doneFrame;
     public JFrame resultFrame;
-    public JPanel input;
-    public JPanel output;
     public JButton submit;
     public JButton done;
     public JButton go;
@@ -20,12 +18,14 @@ public class PaymentSystemInterface {
     public JPanel input1;
     public JPanel input2;
     public JPanel input3;
+    public JPanel buttons;
     public JTextField lastNameText;
     public JTextField firstNameText;
     public JTextField addressText;
     public JTextField idText;
     public JTextField summerCourseTitleText;
     public JTextField salaryText;
+    public JTextField grantText;
     public JTextArea results;
     public JLabel lastName;
     public JLabel firstName;
@@ -36,14 +36,15 @@ public class PaymentSystemInterface {
     public JLabel summerCourseTitle;
     public JLabel employeePick;
     public JLabel teachingSummerLabel;
-    public JLabel grantOverMilLabel;
+    public JLabel receiveGrantLabel;
     public JLabel submitLabel;
     public JLabel clearLabel;
     public JLabel selectTeacher;
     public JLabel id;
     public JLabel doneLabel;
+    public JLabel grantLabel;
     public JComboBox employeePickBox;
-    public JComboBox grantOverMil;
+    public JComboBox receiveGrant;
     public JComboBox teachingSummer;
 
     GridBagLayout gbl;
@@ -85,7 +86,9 @@ public class PaymentSystemInterface {
 		input2 = new JPanel();
 		input2.setLayout(gbl);
         input3 = new JPanel();
-        input3.setLayout((gbl));
+        input3.setLayout(gbl);
+        buttons = new JPanel();
+        buttons.setLayout(gbl);
 
         gbc.gridx = 0;
 		gbc.gridy = 0;
@@ -98,6 +101,10 @@ public class PaymentSystemInterface {
         gbc.gridx = 0;
         gbc.gridy = 4;
         SystemFrame.add(input3, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        SystemFrame.add(buttons, gbc);
 
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.insets = new Insets(3, 3, 3, 3);
@@ -193,50 +200,60 @@ public class PaymentSystemInterface {
         gbc.gridy = 0;
         input2.add(summerCourseTitleText, gbc);
 
-        prompt2 = new JLabel("Answer the following question for Professors only.");
+        prompt2 = new JLabel("Answer the following questions for Professors only.");
         gbc.gridx = 0;
         gbc.gridy = 3;
         SystemFrame.add(prompt2, gbc);
 
-        grantOverMilLabel = new JLabel("Has the professor received a grant MORE than $1,000,000?");
+        receiveGrantLabel = new JLabel("Has the professor received a grant?");
         gbc.gridx = 0;
         gbc.gridy = 0;
-        input3.add(grantOverMilLabel, gbc);
+        input3.add(receiveGrantLabel, gbc);
 
-        grantOverMil = new JComboBox<>(yesNo);
+        receiveGrant = new JComboBox<>(yesNo);
         gbc.gridx = 1;
         gbc.gridy = 0;
-        input3.add(grantOverMil, gbc);
+        input3.add(receiveGrant, gbc);
+
+        grantLabel = new JLabel("If yes, enter the grant amount:");
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        input3.add(grantLabel, gbc);
+
+        grantText = new JTextField(10);
+        gbc.gridx = 3;
+        gbc.gridy = 0;
+        input3.add(grantText, gbc);
 
         submitLabel = new JLabel("Click the button below to submit the form.");
         gbc.gridx = 0;
-        gbc.gridy = 1;
-        input3.add(submitLabel, gbc);
+        gbc.gridy = 0;
+        buttons.add(submitLabel, gbc);
 
         submit = new JButton("Submit");
         gbc.gridx = 0;
-        gbc.gridy = 2;
-        input3.add(submit, gbc);
+        gbc.gridy = 1;
+        buttons.add(submit, gbc);
 
         doneLabel = new JLabel("Click the button below when you are done entering information for ALL employees");
         gbc.gridx = 0;
-        gbc.gridy = 3;
-        input3.add(doneLabel, gbc);
+        gbc.gridy = 2;
+        buttons.add(doneLabel, gbc);
 
         done = new JButton("Done");
         gbc.gridx = 0;
-        gbc.gridy = 4;
-        input3.add(done, gbc);
+        gbc.gridy = 3;
+        buttons.add(done, gbc);
 
         clearLabel = new JLabel("Click the button below to clear the form.");
         gbc.gridx = 0;
-        gbc.gridy = 5;
-        input3.add(clearLabel, gbc);
+        gbc.gridy = 4;
+        buttons.add(clearLabel, gbc);
 
         clear = new JButton("Clear");
         gbc.gridx = 0;
-        gbc.gridy = 6;
-        input3.add(clear, gbc);
+        gbc.gridy = 5;
+        buttons.add(clear, gbc);
 
 
         ArrayList <Employee> empList = new ArrayList<Employee>();
@@ -251,6 +268,7 @@ public class PaymentSystemInterface {
 				idText.setText("");
 				summerCourseTitleText.setText("");
 				salaryText.setText("");
+                grantText.setText("");
 			}
 		});
 
@@ -274,6 +292,43 @@ public class PaymentSystemInterface {
                     empList.add(employee);
 
                 }
+                if(employeePickBox.getSelectedItem().equals("Assistant Professor"))
+                {
+                    AssistantProfessor ap = new AssistantProfessor();
+                    ap.last_name = lastName;
+                    ap.first_name = firstName;
+                    ap.address = address;
+                    ap.id = id;
+                    ap.monthly_salary = salary;
+                    if(teachingSummer.getSelectedItem().equals("Yes"))
+                    {
+                        ap.additionalPayment(true);
+                        ap.extraCourseTitle = summerCourseTitleText.getText();
+                    }
+                    empList.add(ap);
+
+                }
+                if(employeePickBox.getSelectedItem().equals("Professor"))
+                {
+                    Professor prof = new Professor();
+                    prof.last_name = lastName;
+                    prof.first_name = firstName;
+                    prof.address = address;
+                    prof.id = id;
+                    prof.monthly_salary = salary;
+                    if(teachingSummer.getSelectedItem().equals("Yes"))
+                    {
+                        prof.additionalPayment(true);
+                        prof.extraCourseTitle = summerCourseTitleText.getText();
+                    }
+                    if(receiveGrant.getSelectedItem().equals("Yes"))
+                    {
+                        prof.bonus(true);
+                    }
+
+                    empList.add(prof);
+
+                }
 
 
                 lastNameText.setText("");
@@ -282,6 +337,7 @@ public class PaymentSystemInterface {
 				idText.setText("");
 				summerCourseTitleText.setText("");
 				salaryText.setText("");
+                grantText.setText("");
             }
         });
 

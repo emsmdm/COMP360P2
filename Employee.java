@@ -17,15 +17,4 @@ public class Employee {
         String response = String.format("First and last name: %s %s\nAddress: %s\nEmployee ID: %d\n9 month salary: %d", first_name, last_name, address, id, nineMonthPayment());
         return response;
     }
-
-    /*public static void main(String[] args){
-        Employee Maw = new Employee();
-        Maw.first_name = "Maw";
-        Maw.last_name = "Dogbe";
-        Maw.address = "5217 Emerald Spring Drive";
-        Maw.id = 56789;
-        Maw.monthly_salary = 52000;
-        System.out.println(Maw);
-    
-    }*/
 }
