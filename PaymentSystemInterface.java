@@ -49,8 +49,8 @@ public class PaymentSystemInterface {
 
     GridBagLayout gbl;
     GridBagConstraints gbc;
-    GridBagConstraints gbg;
 
+    //helper method for finding the index of an element of an array
     public static int findIndex(String arr[], String s) 
     {  
         if (arr == null) 
@@ -73,6 +73,7 @@ public class PaymentSystemInterface {
     }
 
     public PaymentSystemInterface() {
+        //Creates the frame (main window) for the form
         SystemFrame = new JFrame("ABC University Payment System");
         SystemFrame.setSize(600, 600);
         SystemFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -81,6 +82,8 @@ public class PaymentSystemInterface {
 		SystemFrame.setLayout(gbl);
 		SystemFrame.setVisible(true);
 
+        //creating and adding each of the sections of the form
+        //to the main window
         input1 = new JPanel();
 		input1.setLayout(gbl);
 		input2 = new JPanel();
@@ -109,6 +112,7 @@ public class PaymentSystemInterface {
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.insets = new Insets(3, 3, 3, 3);
 
+        //defining text boxes, drop down boxes, and labels for input
         employeePick = new JLabel("Employee Type");
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -127,7 +131,7 @@ public class PaymentSystemInterface {
 		gbc.gridy = 1;
 		input1.add(lastName, gbc);
 		
-		lastNameText = new JTextField(10); //parameter determines how many characters you can see at a time
+		lastNameText = new JTextField(10);
 		gbc.gridx = 1;
 		gbc.gridy = 1;
 		input1.add(lastNameText, gbc);
@@ -137,7 +141,7 @@ public class PaymentSystemInterface {
 		gbc.gridy = 1;
 		input1.add(firstName, gbc);
 		
-		firstNameText = new JTextField(10); //parameter determines how many characters you can see at a time
+		firstNameText = new JTextField(10);
 		gbc.gridx = 3;
 		gbc.gridy = 1;
 		input1.add(firstNameText, gbc);
@@ -147,7 +151,7 @@ public class PaymentSystemInterface {
 		gbc.gridy = 2;
 		input1.add(address, gbc);
 		
-		addressText = new JTextField(10); //parameter determines how many characters you can see at a time
+		addressText = new JTextField(10);
 		gbc.gridx = 1;
 		gbc.gridy = 2;
 		input1.add(addressText, gbc);
@@ -173,7 +177,6 @@ public class PaymentSystemInterface {
         input1.add(salaryText, gbc);
 
         prompt1 = new JLabel("Answer the following questions for Professors and Assistant Professors.");
-        //prompt1.setHorizontalAlignment(JLabel.CENTER);
         gbc.gridx = 0;
         gbc.gridy = 1;
         SystemFrame.add(prompt1, gbc);
@@ -225,6 +228,7 @@ public class PaymentSystemInterface {
         gbc.gridy = 0;
         input3.add(grantText, gbc);
 
+        //defining buttons used to submit the form
         submitLabel = new JLabel("Click the button below to submit the form.");
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -255,10 +259,14 @@ public class PaymentSystemInterface {
         gbc.gridy = 5;
         buttons.add(clear, gbc);
 
-
+        //ArrayList to store all of the Employee objects
+        //Employee covers every type (Lecturer, Assistant Professor, Professor)
+        //because of inheritance
+        //ArrayList and not array because the # of employees is unknown
         ArrayList <Employee> empList = new ArrayList<Employee>();
 
-    
+        //ActionListener for the clear button - ensures the form is cleared
+        //when the clear button is pressed
         clear.addActionListener((ActionListener) new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -272,9 +280,12 @@ public class PaymentSystemInterface {
 			}
 		});
 
+        //ActionListener for the submit button - creates respective
+        //Employee object and stores it in the ArrayList
         submit.addActionListener((ActionListener) new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
+                //Default variables that apply to every type of employee
                 String lastName = lastNameText.getText();
                 String firstName = firstNameText.getText();
                 String address = addressText.getText();
@@ -330,7 +341,8 @@ public class PaymentSystemInterface {
 
                 }
 
-
+                //clears form after submission to make it easier to input
+                //info for multiple employees
                 lastNameText.setText("");
 				firstNameText.setText("");
 				addressText.setText("");
@@ -341,7 +353,8 @@ public class PaymentSystemInterface {
             }
         });
 
-
+        //ActionListener for the done button - pushes the first name of every
+        //employee into an array for easy selection by the user when button is clicked
         done.addActionListener((ActionListener) new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
@@ -362,6 +375,8 @@ public class PaymentSystemInterface {
                 go = new JButton("Go");
                 doneFrame.add(go);
 
+                //ActionListener for the go button - retrieves the info
+                //for the employee selected by the user when the button is clicked
                 go.addActionListener((ActionListener) new ActionListener(){
                     @Override
                     public void actionPerformed(ActionEvent f){
@@ -381,6 +396,7 @@ public class PaymentSystemInterface {
 
     }
 
+    //runs the interface
     public static void main(String[] args) {
         PaymentSystemInterface ABCPayment = new PaymentSystemInterface();
     }
