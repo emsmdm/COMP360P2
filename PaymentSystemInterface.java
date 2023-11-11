@@ -335,6 +335,7 @@ public class PaymentSystemInterface {
                     if(receiveGrant.getSelectedItem().equals("Yes"))
                     {
                         prof.bonus(true);
+                        prof.grant = Integer.valueOf(grantText.getText());
                     }
 
                     empList.add(prof);
