@@ -16,7 +16,7 @@ public class Professor extends AssistantProfessor{
     }
 
     public String toString(){
-        String bonusPay = String.format(super.toString() + "\nGrant Amount: %d\nTotal bonus payment: %d", grant, bonus(grantExist) + grant);
+        String bonusPay = String.format(super.toString() + "\nGrant Amount: %d\nTotal bonus payment (Grant + Grant bonus + Summer payment): %d", grant, bonus(grantExist) + grant + summerPay);
         return bonusPay;
     }
 }
